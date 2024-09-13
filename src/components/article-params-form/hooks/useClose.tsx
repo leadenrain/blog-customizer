@@ -30,5 +30,5 @@ export const useClose = ({ isOpen, rootRef, onClose, onChange }: UseClose) => {
 			document.removeEventListener('mousedown', handleOutsideClickClose);
 			document.removeEventListener('keydown', handleCloseByEsc);
 		};
-	}, [onClose, onChange, isOpen]);
+	}, []);
 };
