@@ -9,6 +9,7 @@ type UseClose = {
 
 export const useClose = ({ isOpen, rootRef, onClose, onChange }: UseClose) => {
 	useEffect(() => {
+		if (!isOpen) return;
 		const handleOutsideClickClose = (evt: MouseEvent) => {
 			const { target } = evt;
 			if (target instanceof Node && !rootRef.current?.contains(target)) {
@@ -25,10 +26,5 @@ export const useClose = ({ isOpen, rootRef, onClose, onChange }: UseClose) => {
 
 		document.addEventListener('mousedown', handleOutsideClickClose);
 		document.addEventListener('keydown', handleCloseByEsc);
-
-		return () => {
-			document.removeEventListener('mousedown', handleOutsideClickClose);
-			document.removeEventListener('keydown', handleCloseByEsc);
-		};
-	}, []);
+	}, [isOpen]);
 };
