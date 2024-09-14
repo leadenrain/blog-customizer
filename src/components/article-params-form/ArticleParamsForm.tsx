@@ -27,11 +27,11 @@ type FormProps = Dispatch<SetStateAction<ArticleStateType>>;
 export const ArticleParamsForm: FC<{ changeStyles: FormProps }> = ({
 	changeStyles,
 }) => {
-	const [isOpen, setIsOpen] = useState<boolean>(false);
+	const [isMenuOpen, seIsMenuOpen] = useState<boolean>(false);
 	const [options, setOptions] = useState<ArticleStateType>(defaultArticleState);
 
 	const onArrowButtonClick = () => {
-		setIsOpen((state: typeof isOpen) => !state);
+		seIsMenuOpen((state: typeof isMenuOpen) => !state);
 	};
 
 	const changeOption = (
@@ -63,14 +63,14 @@ export const ArticleParamsForm: FC<{ changeStyles: FormProps }> = ({
 
 	const asideRef = useRef<HTMLDivElement>(null);
 	const handleClose = () => {
-		setIsOpen(false);
+		seIsMenuOpen(false);
 	};
 
 	useClose({
-		isOpen,
+		isOpen: isMenuOpen,
 		rootRef: asideRef,
 		onClose: handleClose,
-		onChange: setIsOpen,
+		onChange: seIsMenuOpen,
 	});
 
 	const resetOptions = () => {
@@ -85,10 +85,12 @@ export const ArticleParamsForm: FC<{ changeStyles: FormProps }> = ({
 
 	return (
 		<>
-			<ArrowButton isOpen={isOpen} onClick={onArrowButtonClick} />
+			<ArrowButton isOpen={isMenuOpen} onClick={onArrowButtonClick} />
 			<aside
 				ref={asideRef}
-				className={clsx(styles.container, isOpen && styles.container_open)}>
+				className={clsx(styles.container, {
+					[styles.container_open]: isMenuOpen,
+				})}>
 				<form
 					className={styles.form}
 					onReset={resetOptions}
