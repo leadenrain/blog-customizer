@@ -30,6 +30,11 @@
 	transition: outline 0.3s ease;
 }
 
+.placeholder:focus-visible {
+	border: 1px solid #000000;
+	border-radius: 3px;
+}
+
 .placeholder[data-selected='true'] {
 	color: rgb(0 0 0);
 }
