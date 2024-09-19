@@ -27,11 +27,11 @@ type FormProps = Dispatch<SetStateAction<ArticleStateType>>;
 export const ArticleParamsForm: FC<{ changeStyles: FormProps }> = ({
 	changeStyles,
 }) => {
-	const [isMenuOpen, seIsMenuOpen] = useState<boolean>(false);
+	const [isSidebarOpen, seIsSidebarOpen] = useState<boolean>(false);
 	const [options, setOptions] = useState<ArticleStateType>(defaultArticleState);
 
 	const onArrowButtonClick = () => {
-		seIsMenuOpen((state: typeof isMenuOpen) => !state);
+		seIsSidebarOpen((state: typeof isSidebarOpen) => !state);
 	};
 
 	const changeOption = (
@@ -61,16 +61,16 @@ export const ArticleParamsForm: FC<{ changeStyles: FormProps }> = ({
 		changeOption('contentWidthArrOption', selectedOption);
 	};
 
-	const asideRef = useRef<HTMLDivElement>(null);
+	const sidebarRef = useRef<HTMLDivElement>(null);
 	const handleClose = () => {
-		seIsMenuOpen(false);
+		seIsSidebarOpen(false);
 	};
 
 	useClose({
-		isOpen: isMenuOpen,
-		rootRef: asideRef,
+		isOpen: isSidebarOpen,
+		rootRef: sidebarRef,
 		onClose: handleClose,
-		onChange: seIsMenuOpen,
+		onChange: seIsSidebarOpen,
 	});
 
 	const resetOptions = () => {
@@ -84,12 +84,11 @@ export const ArticleParamsForm: FC<{ changeStyles: FormProps }> = ({
 	};
 
 	return (
-		<>
-			<ArrowButton isOpen={isMenuOpen} onClick={onArrowButtonClick} />
+		<div ref={sidebarRef}>
+			<ArrowButton isOpen={isSidebarOpen} onClick={onArrowButtonClick} />
 			<aside
-				ref={asideRef}
 				className={clsx(styles.container, {
-					[styles.container_open]: isMenuOpen,
+					[styles.container_open]: isSidebarOpen,
 				})}>
 				<form
 					className={styles.form}
@@ -136,6 +135,6 @@ export const ArticleParamsForm: FC<{ changeStyles: FormProps }> = ({
 					</div>
 				</form>
 			</aside>
-		</>
+		</div>
 	);
 };
