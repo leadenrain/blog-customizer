@@ -34,33 +34,6 @@ export const ArticleParamsForm: FC<{ changeStyles: FormProps }> = ({
 		seIsSidebarOpen((state: typeof isSidebarOpen) => !state);
 	};
 
-	const changeOption = (
-		optionKey: keyof ArticleStateType,
-		optionType: OptionType
-	) => {
-		setOptions({ ...options, [optionKey]: optionType });
-	};
-
-	const onFontFamilyChange = (selectedOption: OptionType) => {
-		changeOption('fontFamilyOption', selectedOption);
-	};
-
-	const onFontSizeChange = (selectedOption: OptionType) => {
-		changeOption('fontSizeOption', selectedOption);
-	};
-
-	const onFontColorChange = (selectedOption: OptionType) => {
-		changeOption('fontColorOption', selectedOption);
-	};
-
-	const onBackgroundColorChange = (selectedOption: OptionType) => {
-		changeOption('backgroundColorOption', selectedOption);
-	};
-
-	const onContentWidthArrChange = (selectedOption: OptionType) => {
-		changeOption('contentWidthArrOption', selectedOption);
-	};
-
 	const sidebarRef = useRef<HTMLDivElement>(null);
 	const handleClose = () => {
 		seIsSidebarOpen(false);
@@ -72,6 +45,13 @@ export const ArticleParamsForm: FC<{ changeStyles: FormProps }> = ({
 		onClose: handleClose,
 		onChange: seIsSidebarOpen,
 	});
+
+	const changeOption = (
+		optionKey: keyof ArticleStateType,
+		optionType: OptionType
+	) => {
+		setOptions({ ...options, [optionKey]: optionType });
+	};
 
 	const resetOptions = () => {
 		setOptions(defaultArticleState);
@@ -101,33 +81,33 @@ export const ArticleParamsForm: FC<{ changeStyles: FormProps }> = ({
 						title='Шрифт'
 						selected={options.fontFamilyOption}
 						options={fontFamilyOptions}
-						onChange={onFontFamilyChange}
+						onChange={(option) => changeOption('fontFamilyOption', option)}
 					/>
 					<RadioGroup
 						title='Размер шрифта'
 						name={''}
 						selected={options.fontSizeOption}
 						options={fontSizeOptions}
-						onChange={onFontSizeChange}
+						onChange={(option) => changeOption('fontSizeOption', option)}
 					/>
 					<Select
 						title='Цвет шрифта'
 						selected={options.fontColorOption}
 						options={fontColorOptions}
-						onChange={onFontColorChange}
+						onChange={(option) => changeOption('fontColorOption', option)}
 					/>
 					<Separator />
 					<Select
 						title='Цвет фона'
 						selected={options.backgroundColorOption}
 						options={backgroundColorOptions}
-						onChange={onBackgroundColorChange}
+						onChange={(option) => changeOption('backgroundColorOption', option)}
 					/>
 					<Select
 						title='Ширина контента'
 						selected={options.contentWidthArrOption}
 						options={contentWidthArrOptions}
-						onChange={onContentWidthArrChange}
+						onChange={(option) => changeOption('contentWidthArrOption', option)}
 					/>
 					<div className={styles.bottomContainer}>
 						<Button title='Сбросить' type='reset' />
